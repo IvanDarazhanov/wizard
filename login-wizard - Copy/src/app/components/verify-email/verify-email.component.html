@@ -1,0 +1,61 @@
+<div class="page-wrapper">
+  <header class="header">
+    <div class="logo">Website</div>
+    <button class="help-button">NEED HELP?</button>
+  </header>
+
+  <div class="container">
+    <h1 class="title">Verify your email address</h1>
+
+    <div class="card">
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 66.66%"></div>
+      </div>
+
+      <button class="back-button" (click)="goBack()">
+        ←
+      </button>
+
+      <p class="card-subtitle">
+        A 6-digit code has been sent to 
+        <span class="highlight">{{ emailAddress }}</span>
+      </p>
+
+      <div class="icon-container">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <rect x="15" y="22" width="50" height="36" rx="4" stroke="#7C3AED" stroke-width="3" fill="none"/>
+          <path d="M15 28L40 45L65 28" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="form-label">VERIFICATION CODE</label>
+          <input 
+            type="text" 
+            class="form-input"
+            [class.error]="submitted && f['code'].errors"
+            formControlName="code"
+            placeholder="Enter 6-digit verification code here"
+            maxlength="6"
+          />
+        </div>
+
+        <button type="submit" class="primary-button">
+          CONTINUE
+        </button>
+
+        <div class="text-center" style="margin-top: 20px;">
+          <p class="text-muted">
+            Didn't receive code? 
+            <button type="button" class="link-button" (click)="resendCode()">Resend code</button>
+          </p>
+          <p class="divider">OR</p>
+          <button type="button" class="link-button" (click)="sendViaMobile()">
+            Send verification code on mobile no.
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

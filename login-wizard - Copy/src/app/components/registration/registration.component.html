@@ -1,0 +1,72 @@
+<div class="page-wrapper">
+  <header class="header">
+    <div class="logo">Website</div>
+    <button class="help-button">NEED HELP?</button>
+  </header>
+
+  <div class="container">
+    <h1 class="title">Welcome to Website</h1>
+
+    <div class="card">
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 33.33%"></div>
+      </div>
+
+      <button class="back-button" (click)="goBack()">
+        ←
+      </button>
+
+      <h2 class="card-title">Enter your mobile no. & email id</h2>
+
+      <div class="icon-container">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <rect x="20" y="10" width="40" height="60" rx="4" stroke="#7C3AED" stroke-width="3" fill="none"/>
+          <line x1="20" y1="55" x2="60" y2="55" stroke="#7C3AED" stroke-width="3"/>
+          <rect x="35" y="58" width="10" height="4" rx="2" fill="#7C3AED"/>
+        </svg>
+      </div>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="form-label">MOBILE NO.</label>
+          <input 
+            type="tel" 
+            class="form-input"
+            [class.error]="submitted && f['mobile'].errors"
+            formControlName="mobile"
+            placeholder="Enter your mobile no."
+          />
+          <div *ngIf="submitted && f['mobile'].errors" class="error-message">
+            <span>⚠</span>
+            <span>Please enter a valid 10-digit mobile number</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">EMAIL ADDRESS</label>
+          <input 
+            type="email" 
+            class="form-input"
+            [class.error]="submitted && f['email'].errors"
+            formControlName="email"
+            placeholder="Enter your email id"
+          />
+          <div *ngIf="submitted && f['email'].errors" class="error-message">
+            <span>⚠</span>
+            <span>Please enter a valid email id</span>
+          </div>
+        </div>
+
+        <button type="submit" class="primary-button" [disabled]="loading">
+          {{ loading ? 'PLEASE WAIT...' : 'CONTINUE' }}
+        </button>
+
+        <p class="text-center text-muted" style="margin-top: 16px;">
+          By signing up, I agree to the 
+          <a href="#" class="link-button">Privacy Policy</a> & 
+          <a href="#" class="link-button">Terms of Use</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
