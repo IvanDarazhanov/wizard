@@ -1,61 +1,84 @@
 <div class="page-wrapper">
+  <!-- Header -->
   <header class="header">
     <div class="logo">Website</div>
     <button class="help-button">NEED HELP?</button>
   </header>
 
-  <div class="container">
-    <h1 class="title">Verify your email address</h1>
+  <!-- Main Content -->
+  <main class="main-content">
+    <h1 class="page-title">Verify your email address</h1>
 
     <div class="card">
+      <!-- Progress Bar -->
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 66.66%"></div>
+        <div class="progress-fill"></div>
       </div>
 
-      <button class="back-button" (click)="goBack()">
-        ←
-      </button>
-
-      <p class="card-subtitle">
-        A 6-digit code has been sent to 
-        <span class="highlight">{{ emailAddress }}</span>
-      </p>
-
-      <div class="icon-container">
-        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-          <rect x="15" y="22" width="50" height="36" rx="4" stroke="#7C3AED" stroke-width="3" fill="none"/>
-          <path d="M15 28L40 45L65 28" stroke="#7C3AED" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label class="form-label">VERIFICATION CODE</label>
-          <input 
-            type="text" 
-            class="form-input"
-            [class.error]="submitted && f['code'].errors"
-            formControlName="code"
-            placeholder="Enter 6-digit verification code here"
-            maxlength="6"
-          />
+      <!-- Card Content -->
+      <div class="card-content">
+        <!-- Back Button & Info -->
+        <div class="card-header">
+          <button class="back-button" type="button" (click)="goBack()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <div class="info-text">
+            <span>A 6-digit code has been sent to</span>
+            <a href="mailto:{{ emailAddress }}" class="email-link">{{ emailAddress }}</a>
+          </div>
         </div>
 
-        <button type="submit" class="primary-button">
-          CONTINUE
-        </button>
+        <!-- Email Icon -->
+        <div class="icon-container">
+          <svg class="email-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="14" width="48" height="36" rx="3" stroke="#7C3AED" stroke-width="2.5" fill="none"/>
+            <path d="M8 18L32 36L56 18" stroke="#7C3AED" stroke-width="2.5" fill="none"/>
+          </svg>
+        </div>
 
-        <div class="text-center" style="margin-top: 20px;">
-          <p class="text-muted">
+        <!-- Form -->
+        <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label class="form-label">VERIFICATION CODE</label>
+            <input 
+              type="text" 
+              class="form-input"
+              [class.error]="submitted && f['code'].errors"
+              formControlName="code"
+              placeholder="Enter 6-digit verification code here"
+              maxlength="6"
+              inputmode="numeric"
+            />
+            <div class="error-message" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            class="primary-button"
+            [disabled]="loading"
+          >
+            {{ loading ? 'VERIFYING...' : 'CONTINUE' }}
+          </button>
+        </form>
+
+        <!-- Footer Links -->
+        <div class="footer-links">
+          <p class="resend-text">
             Didn't receive code? 
-            <button type="button" class="link-button" (click)="resendCode()">Resend code</button>
+            <button type="button" class="link-button" (click)="resendCode()" [disabled]="loading">
+              Resend code
+            </button>
           </p>
-          <p class="divider">OR</p>
-          <button type="button" class="link-button" (click)="sendViaMobile()">
+          <span class="divider">OR</span>
+          <button type="button" class="link-button" (click)="sendViaMobile()" [disabled]="loading">
             Send verification code on mobile no.
           </button>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </main>
 </div>
